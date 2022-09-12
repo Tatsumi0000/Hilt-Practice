@@ -3,17 +3,26 @@ package com.example.hilt_practice;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SampleFragment1#newInstance} factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 public class SampleFragment1 extends Fragment {
+
+    SampleViewModel sampleViewModel;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,6 +62,11 @@ public class SampleFragment1 extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        sampleViewModel = new ViewModelProvider(this).get(SampleViewModel.class);
+
+        boolean result = sampleViewModel.isGranted();
+        Log.d("DEBUG", Boolean.toString(result));
     }
 
     @Override
